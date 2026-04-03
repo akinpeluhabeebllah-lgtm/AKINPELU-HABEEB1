@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            padding: 20px;
+        }
+        input {
+            width: 300px;
+            height: 40px;
+            font-size: 20px;
+        }
+        button {
+            width: 70px;
+            height: 50px;
+            font-size: 18px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculator</h1>
+    <input type="text" id="display" value="0" readonly>
+    <br><br>
+    
+    <button onclick="appendNumber(7)">7</button>
+    <button onclick="appendNumber(8)">8</button>
+    <button onclick="appendNumber(9)">9</button>
+    <button onclick="setOperator('+')">+</button>
+    <br>
+    
+    <button onclick="appendNumber(4)">4</button>
+    <button onclick="appendNumber(5)">5</button>
+    <button onclick="appendNumber(6)">6</button>
+    <button onclick="setOperator('-')">-</button>
+    <br>
+    
+    <button onclick="appendNumber(1)">1</button>
+    <button onclick="appendNumber(2)">2</button>
+    <button onclick="appendNumber(3)">3</button>
+    <button onclick="setOperator('*')">*</button>
+    <br>
+    
+    <button onclick="appendNumber(0)">0</button>
+    <button onclick="appendDecimal()">.</button>
+    <button onclick="calculate()">=</button>
+    <button onclick="setOperator('/')">/</button>
+    <br><br>
+    
+    <button onclick="clearDisplay()" style="width: 150px;">Clear</button>
+
+    <script>
+        let display = document.getElementById('display');
+        let num1 = 0;
+        let num2 = '';
+        let operator = '';
+
+        function appendNumber(n) {
+            num2 += n;
+            display.value = num2;
+        }
+
+        function appendDecimal() {
+            if (!num2.includes('.')) {
+                num2 += '.';
+                display.value = num2;
+            }
+        }
+
+        function setOperator(op) {
+            if (num2 === '') return;
+            num1 = parseFloat(num2);
+            operator = op;
+            num2 = '';
+            display.value = '';
+        }
+
+        function calculate() {
+            if (num2 === '' || operator === '') return;
+            let result = 0;
+
+            if (operator === '+') result = num1 + parseFloat(num2);
+            else if (operator === '-') result = num1 - parseFloat(num2);
+            else if (operator === '*') result = num1 * parseFloat(num2);
+            else if (operator === '/') result = num1 / parseFloat(num2);
+
+            display.value = result;
+            num1 = result;
+            num2 = '';
+            operator = '';
+        }
+
+        function clearDisplay() {
+            num1 = 0;
+            num2 = '';
+            operator = '';
+            display.value = '0';
+        }
+    </script>
+</body>
+</html>
